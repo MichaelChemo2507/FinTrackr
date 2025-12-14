@@ -1,4 +1,4 @@
 module.exports = {
-    users: ['user_name', 'email', 'password', 'phone'],
+    users: { id: '', columns: ['user_name', 'email', 'password', 'phone'] },
 
 };
