@@ -1,13 +1,13 @@
-const Hashing = require('../utilities/hashing');
-const Users = require('../repositories/users');
-const DError = require('../utilities/detaledError');
+const Hashing = require('../utils/hashing.utils');
+const Users = require('../repositories/users.repositories');
+const DetaledError = require('../utils/detaledError.utils');
 
 module.exports = {
     getAll: async () => {
         let result = await Users.getAll();
 
         if (!result || result.length == 0)
-            throw new DError("SERVER_ERROR", "NO RESULT FROM DB!");
+            throw new DetaledError("SERVER_ERROR", "NO RESULT FROM DB!");
 
         return result;
     },
@@ -18,12 +18,12 @@ module.exports = {
         const emailResult = await Users.getUserByEmail([email]);
 
         if (emailResult.length == 1)
-            throw new DError("CLIENT_ERROR", "EMAIL ALREADY EXISTS!")
+            throw new DetaledError("CLIENT_ERROR", "EMAIL ALREADY EXISTS!")
 
         let result = await Users.create([userName, email, Hashing.encrypt(password), phone]);
 
         if (!result.affectedRows || result.affectedRows < 0)
-            throw new DError('DB_ERROR', 'FAILD TO CREATE USER!');
+            throw new DetaledError('DB_ERROR', 'FAILD TO CREATE USER!');
 
         return true;
     },
@@ -33,7 +33,7 @@ module.exports = {
         let result = await Users.update([userName, email, Hashing.encrypt(password), phone, id]);
 
         if (!result.affectedRows || result.affectedRows < 0)
-            throw new DError('DB_ERROR', 'FAILD TO UPDATE USER!');
+            throw new DetaledError('DB_ERROR', 'FAILD TO UPDATE USER!');
 
         return true;
     },
@@ -41,7 +41,7 @@ module.exports = {
         let result = await Users.delete([id]);
 
         if (!result.affectedRows || result.affectedRows < 0)
-            throw new DError('DB_ERROR', 'FAILD TO DELETE USER!');
+            throw new DetaledError('DB_ERROR', 'FAILD TO DELETE USER!');
 
         return true;
     }
