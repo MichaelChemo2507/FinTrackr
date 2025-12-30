@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-module.exports = async (schema, property = 'body') => {
+module.exports = (schema, property = 'body') => {
 
     return (req, res, next) => {
 
