@@ -3,10 +3,10 @@ const DetaledError = require('../utils/detaledError.utils');
 
 module.exports = {
     getAll: async (req, res) => {
-        return res.status(200).json({ message: "OK", result: UsersService.getAll() });
+        return res.status(200).json({ message: "OK", result: await UsersService.getAll() });
     },
     create: async (req, res) => {
-        const isCreated = UsersService.create(req.body);
+        const isCreated = await UsersService.create(req.body);
 
         if (!isCreated) {
             throw new DetaledError('SERVER_ERROR', "FAILD TO CREATE!")
@@ -15,7 +15,7 @@ module.exports = {
         return res.status(201).json({ message: "OK" })
     },
     update: async (req, res) => {
-        const isUpdated = UsersService.update(req.body, req.params.id);
+        const isUpdated = await UsersService.update(req.body, req.params.id);
 
         if (!isUpdated) {
             throw new DetaledError('SERVER_ERROR', "FAILD TO UPDATE!")
@@ -24,7 +24,7 @@ module.exports = {
         return res.status(204).json({ message: "OK" });
     },
     delete: async (req, res) => {
-        const isDeleted = UsersService.delete(req.params.id);
+        const isDeleted = await UsersService.delete(req.params.id);
 
         if (!isDeleted) {
             throw new DetaledError('SERVER_ERROR', "FAILD TO DELETE!")
