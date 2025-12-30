@@ -29,5 +29,7 @@ module.exports = {
         if (!isDeleted) {
             throw new DetaledError('SERVER_ERROR', "FAILD TO DELETE!")
         }
+
+        res.status(204).json({ message: "OK" });
     }
 }
