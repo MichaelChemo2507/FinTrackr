@@ -1,0 +1,1 @@
+global.STATUS_CODES = require('./statusCodes.utils');

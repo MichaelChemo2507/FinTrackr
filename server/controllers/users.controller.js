@@ -1,35 +1,47 @@
+const { STATUS_CODES } = require('node:http');
 const UsersService = require('../services/users.service');
-const DetaledError = require('../utils/detaledError.utils');
 
 module.exports = {
     getAll: async (req, res) => {
-        return res.status(200).json({ message: "OK", result: await UsersService.getAll() });
+        return res.status(STATUS_CODES.OK).json({ message: "OK", result: await UsersService.getAll() });
     },
     create: async (req, res) => {
         const isCreated = await UsersService.create(req.body);
 
         if (!isCreated) {
-            throw new DetaledError('SERVER_ERROR', "FAILD TO CREATE!")
+
+            const error = new Error("FAILD TO CREATE!");
+            error.status = STATUS_CODES.SERVER_ERROR;
+
+            throw error;
         }
 
-        return res.status(201).json({ message: "OK" })
+        return res.status(STATUS_CODES.CREATED).json({ message: "OK" })
     },
     update: async (req, res) => {
         const isUpdated = await UsersService.update(req.body, req.params.id);
 
         if (!isUpdated) {
-            throw new DetaledError('SERVER_ERROR', "FAILD TO UPDATE!")
+
+            const error = new Error("FAILD TO UPDATE!");
+            error.status = STATUS_CODES.SERVER_ERROR;
+
+            throw error;
         }
 
-        return res.status(204).json({ message: "OK" });
+        return res.status(STATUS_CODES.NO_CONTENT).json({ message: "OK" });
     },
     delete: async (req, res) => {
         const isDeleted = await UsersService.delete(req.params.id);
 
         if (!isDeleted) {
-            throw new DetaledError('SERVER_ERROR', "FAILD TO DELETE!")
+
+            const error = new Error("FAILD TO DELETE!");
+            error.status = STATUS_CODES.SERVER_ERROR;
+
+            throw error;
         }
 
-        return res.status(204).json({ message: "OK" });
+        return res.status(STATUS_CODES.NO_CONTENT).json({ message: "OK" });
     }
 }
