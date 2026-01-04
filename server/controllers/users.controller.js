@@ -1,4 +1,3 @@
-const { STATUS_CODES } = require('node:http');
 const UsersService = require('../services/users.service');
 
 module.exports = {
@@ -6,11 +5,12 @@ module.exports = {
         return res.status(STATUS_CODES.OK).json({ message: "OK", result: await UsersService.getAll() });
     },
     create: async (req, res) => {
+        
         const isCreated = await UsersService.create(req.body);
 
         if (!isCreated) {
 
-            const error = new Error("FAILD TO CREATE!");
+            const error = new Error("faild to create!");
             error.status = STATUS_CODES.SERVER_ERROR;
 
             throw error;
@@ -23,7 +23,7 @@ module.exports = {
 
         if (!isUpdated) {
 
-            const error = new Error("FAILD TO UPDATE!");
+            const error = new Error("faild to update!");
             error.status = STATUS_CODES.SERVER_ERROR;
 
             throw error;
@@ -36,7 +36,7 @@ module.exports = {
 
         if (!isDeleted) {
 
-            const error = new Error("FAILD TO DELETE!");
+            const error = new Error("faild to delete!");
             error.status = STATUS_CODES.SERVER_ERROR;
 
             throw error;

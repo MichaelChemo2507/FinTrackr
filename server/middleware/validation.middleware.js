@@ -9,6 +9,7 @@ module.exports = (schema, property = 'body') => {
             stripUnknown: true
         });
         if (error) {
+            error.status = STATUS_CODES.BAD_REQUEST;
             next(error);
         }
 

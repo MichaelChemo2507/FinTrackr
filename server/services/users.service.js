@@ -1,6 +1,5 @@
 const Hashing = require('../utils/hashing.utils');
 const Users = require('../repositories/users.repositories');
-const { STATUS_CODES } = require('http');
 
 module.exports = {
     getAll: async () => {
@@ -16,24 +15,24 @@ module.exports = {
         return result;
     },
     create: async (values) => {
-
+        
         let { userName, email, password, phone } = values;
 
         const emailResult = await Users.getUserByEmail([email]);
 
         if (emailResult.length == 1) {
 
-            const error = new Error("EMAIL ALREADY EXISTS!");
+            const error = new Error("email alraedy exists!");
             error.status = STATUS_CODES.BAD_REQUEST;
 
             throw error;
         }
 
-        let result = await Users.create([userName, email, Hashing.encrypt(password), phone]);
+        let result = await Users.create([userName, email,await Hashing.encrypt(password), phone]);
 
         if (!result.affectedRows || result.affectedRows < 0) {
 
-            const error = new Error("FAILD TO CREATE USER!");
+            const error = new Error("faild to create user!");
             error.status = STATUS_CODES.SERVER_ERROR;
 
             throw error;
@@ -48,7 +47,7 @@ module.exports = {
 
         if (!result.affectedRows || result.affectedRows < 0){
 
-            const error = new Error("FAILD TO UPDATE USER!");
+            const error = new Error("faild to update user!");
             error.status = STATUS_CODES.SERVER_ERROR;
 
             throw error;
@@ -61,7 +60,7 @@ module.exports = {
 
         if (!result.affectedRows || result.affectedRows < 0){
 
-            const error = new Error("FAILD TO DELETE USER!");
+            const error = new Error("faild to delete user!");
             error.status = STATUS_CODES.SERVER_ERROR;
 
             throw error;

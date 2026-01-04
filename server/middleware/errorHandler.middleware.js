@@ -1,5 +1,4 @@
-const { log } = require("console")
-const { STATUS_CODES } = require("http")
+
 
 module.exports = (error, req, res, next) => { // basic error handler.
     console.log(error.stack);
