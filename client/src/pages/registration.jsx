@@ -1,7 +1,7 @@
 import RegistrationForm from "../components/auth/registrationForm";
-import WelcomeText from "../ui/welcomeText";
+import WelcomeText from "../components/ui/welcomeText";
 import registrationWelcomeText from "../content/registrationPage";
-import Logo from "../ui/logo";
+import Logo from "../components/ui/logo";
 
 export default function RegistrationPage() {
     return (
