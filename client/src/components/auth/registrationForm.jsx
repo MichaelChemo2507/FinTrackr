@@ -6,8 +6,7 @@ export default function RegistrationForm() {
 
     return (
         <div>
-            <form onSubmit={() => {
-            }}>
+            <form onSubmit={() => { }}>
                 <h1>Create Account</h1>
                 <div>Start tracking your finances today</div>
 
@@ -18,7 +17,7 @@ export default function RegistrationForm() {
 
                 <button type="submit">Get Started</button>
             </form>
-            <div>Already have an account?<a href="">Sign in</a></div>
+            <div>Already have an account?<a href="">Sign in</a></div> {/* Link to login page - not exist yet */}
         </div>
     );
 }
