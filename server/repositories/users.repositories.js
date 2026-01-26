@@ -1,4 +1,4 @@
-const connection = require('../db/db_config');
+const connection = require('../config/db.config');
 
 module.exports = {
     getAll: async () => {
