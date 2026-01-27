@@ -3,10 +3,9 @@
 module.exports = (error, req, res, next) => { // basic error handler.
     console.log(error.stack);
 
-    Object.values(STATUS_CODES).forEach(code => {
-        if (code === error.status)
-            return res.status(code).send(error.message); // need to add an error html file (optional).
-    })
+    if (Object.values(STATUS_CODES).includes(error.status)) {
+        return res.status(error.status).send(error.message);
+    }
 
     return res.status(500).send(error.message + " Please try again later!");
 }
