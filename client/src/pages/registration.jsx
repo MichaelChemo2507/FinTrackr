@@ -1,5 +1,5 @@
 import RegistrationForm from "../components/auth/registrationForm";
-import WelcomeText from "../components/ui/welcomeText";
+import WelcomeText from "../components/welcomeText";
 import registrationWelcomeText from "../content/registrationPage";
 import Logo from "../components/ui/logo";
 
