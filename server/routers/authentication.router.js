@@ -6,6 +6,7 @@ const tryCatch = require('../middleware/tryCatch.middleware');
 
 const router = app.Router();
 
-router.post('/',[validation(/* users validation */),tryCatch(/* login controller */)]);
+router.post('/registration',[validation(usersSchema.create),tryCatch(UsersController.create)]);
+router.post('/login', [validation(usersSchema.login), tryCatch(UsersController.login)]);
 
 module.exports = router;
