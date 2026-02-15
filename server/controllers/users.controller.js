@@ -1,3 +1,5 @@
+const { STATUS_CODES } = require('http');
+const usersService = require('../services/users.service');
 const UsersService = require('../services/users.service');
 
 module.exports = {
@@ -5,7 +7,7 @@ module.exports = {
         return res.status(STATUS_CODES.OK).json({ message: "OK", result: await UsersService.getAll() });
     },
     create: async (req, res) => {
-        
+
         const isCreated = await UsersService.create(req.body);
 
         if (!isCreated) {
@@ -43,5 +45,23 @@ module.exports = {
         }
 
         return res.status(STATUS_CODES.NO_CONTENT).json({ message: "OK" });
+    },
+    login: async (req, res) => {
+        const accessToken = await usersService.login(req.body);
+
+        if (!accessToken) {
+
+            const error = new Error("faild to login!");
+            error.status = STATUS_CODES.UNAUTHORIZED;
+
+            throw error;
+        }
+
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            maxAge: 60 * 60 * 24,
+        });
+
+        return res.status(STATUS_CODES.OK).json({ message: "OK" });
     }
 }
