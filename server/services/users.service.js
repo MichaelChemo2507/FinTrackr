@@ -73,11 +73,19 @@ module.exports = {
     login: async (values) => {
         const { userName, password } = values;
 
-        const authenticateResult = usersRepositories.login([userName, await Hashing.encrypt(password)]);
+        const result = await usersRepositories.login([userName]);
 
-        console.log(authenticateResult);
+        if (!result || result.length <= 0) {
 
-        if (!authenticateResult || authenticateResult.length <= 0) {
+            const error = new Error("faild to login!");
+            error.status = STATUS_CODES.BAD_REQUEST;
+
+            throw error;
+        }
+        
+        const comperedPasswords = await Hashing.compare(password, result[0].password);
+
+        if (!comperedPasswords) {
 
             const error = new Error("faild to login!");
             error.status = STATUS_CODES.BAD_REQUEST;
@@ -85,7 +93,7 @@ module.exports = {
             throw error;
         }
 
-        const accessToken = jwtMethods.generateJwt({ USER_ID: authenticateResult[0].id }, 60 * 60 * 24);
+        const accessToken = jwtMethods.generateJwt({ USER_ID: result[0].id }, 60 * 60 * 24);
 
         return accessToken;
     }

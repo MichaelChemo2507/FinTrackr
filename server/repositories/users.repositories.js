@@ -38,7 +38,8 @@ module.exports = {
 
         return result;
     }, login: async (values) => {
-        const sql = 'SELECT * FROM `users` WHERE `user_name` = ? AND `password` = ?';
+        
+        const sql = 'SELECT * FROM `users` WHERE `user_name` = ?';
 
         const [result, fields] = await connection.pool.execute(sql, values);
 

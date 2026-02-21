@@ -1,4 +1,3 @@
-const { STATUS_CODES } = require('http');
 const usersService = require('../services/users.service');
 const UsersService = require('../services/users.service');
 
