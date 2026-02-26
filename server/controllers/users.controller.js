@@ -56,10 +56,25 @@ module.exports = {
             throw error;
         }
 
-        res.cookie('accessToken', accessToken, {
+        res.cookie("accessToken", accessToken, {
             httpOnly: true,
-            maxAge: 60 * 60 * 24,
+            maxAge: 24 * 60 * 60 * 1000,
+            sameSite: "lax",
+            secure: false,
         });
+        
+        /*
+        <<prodaction setup>>
+        
+        res.cookie("accessToken", accessToken, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000,
+            sameSite: "none",  
+            secure: true,      
+        });
+        */
+
+
 
         return res.status(STATUS_CODES.OK).json({ message: "OK" });
     }
