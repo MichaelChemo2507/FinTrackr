@@ -1,10 +1,10 @@
 import { BrowserRouter } from 'react-router-dom';
-import RegistrationPage from './pages/registration';
+import Router from './router/router.jsx';
 
 function App() {
   return (
     <BrowserRouter>
-      <RegistrationPage />
+      <Router />
     </BrowserRouter>
   );
 }
