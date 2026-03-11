@@ -2,10 +2,10 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
     encrypt: async (inputText) => {
-        const salt = await bcrypt.genSaltSync(process.env.SALT_RANDOMS);
+        const salt = await bcrypt.genSaltSync(Number(process.env.SALT_ROUNDS));
         return await bcrypt.hashSync(inputText, salt);
-    }, 
-    compare: async (hashedText, inputText) => {
+    },
+    compare: async (inputText, hashedText) => {
         return await bcrypt.compareSync(inputText, hashedText);
     }
 }

@@ -12,7 +12,10 @@ module.exports = {
         password: Joi.string().min(8).max(30),
         phone: Joi.string().pattern(/^[0-9]{10,15}$/)
     }).min(1),
-
+    login: Joi.object({
+        userName: Joi.string().min(3).max(30).required(),
+        password: Joi.string().min(8).max(30).required(),
+    }),
     id: Joi.object({
         id: Joi.number().integer().positive().required()
     })
